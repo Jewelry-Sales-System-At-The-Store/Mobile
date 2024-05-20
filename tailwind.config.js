@@ -4,7 +4,18 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        pthin: ['Poppins-Thin', 'sans-serif'],
+        pextralight: ['Poppins-ExtraLight', 'san-serif'],
+        plight: ['Poppins-Light', 'san-serif'],
+        pregular: ['Poppins-Regular', 'san-serif'],
+        pmedium: ['Poppins-Medium', 'san-serif'],
+        psemibold: ['Poppins-SemiBold', 'san-serif'],
+        pbold: ['Poppins-Bold', 'san-serif'],
+        pblack: ['Poppins-Black', 'san-serif'],
+      },
+    },
   },
   plugins: [],
 };

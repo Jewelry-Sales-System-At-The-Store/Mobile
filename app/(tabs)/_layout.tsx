@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 interface TabIconProps {
   icon: ImageSourcePropType;

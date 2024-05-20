@@ -1,61 +1,101 @@
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Container } from '~/components/Container';
-import { Link, router } from 'expo-router';
-import { SignInForm } from '../types/auth.type';
-import FormField from '~/components/FormField';
-import CustomButton from '~/components/CustomButton';
-import { AntDesign } from '@expo/vector-icons';
+import { SignUpForm } from '../../types/auth.type';
+import { StatusBar } from 'expo-status-bar';
+import { images } from '~/constants/images';
+import Animated, { FadeIn, FadeInDown, FadeInUp, FadeOut } from 'react-native-reanimated';
+import { router } from 'expo-router';
 
 const SignUp = () => {
-  const [form, setform] = useState<SignInForm>({
+  const [form, setform] = useState<SignUpForm>({
     email: '',
     password: '',
-    confirmPassword: '',
   });
-
   return (
-    <Container>
-      <ScrollView contentContainerStyle={{ justifyContent: 'center' }} className="max-h-[80%] p-6">
-        <View>
-          <Text className="font-psemibold text-primary mb-5 text-4xl">Đăng Ký</Text>
+    <>
+      <Image
+        className="absolute h-[600px] w-full"
+        source={images.background.background1}
+        resizeMode="cover"
+      />
 
-          <FormField
-            handleChangeText={(value) => setform({ ...form, email: value })}
-            value={form.email}
-            placeholder="Nhập địa chỉ email"
-          />
+      {/* lights */}
+      <View className="absolute w-full flex-row justify-around">
+        <Animated.Image
+          entering={FadeInUp.delay(200).duration(1000).springify()}
+          className="h-[170px] w-[70px] "
+          source={images.object.light}
+          resizeMode="contain"
+        />
+        <Animated.Image
+          entering={FadeInUp.delay(400).duration(1000).springify()}
+          className="h-[120px] w-[50px] "
+          source={images.object.light}
+          resizeMode="contain"
+        />
+      </View>
+      <StatusBar style="light" />
+      <Container>
+        <View className="flex h-full w-full justify-around pb-5 pt-36">
+          {/* title */}
+          <View className="flex items-center">
+            <Animated.Text
+              entering={FadeInUp.duration(1000).springify()}
+              className="font-pbold py-2 text-5xl tracking-wider text-white">
+              Sign Up
+            </Animated.Text>
+          </View>
 
-          <FormField
-            handleChangeText={(value) => setform({ ...form, password: value })}
-            value={form.password}
-            secureTextEntry
-            placeholder="Nhập mật khẩu"
-          />
-
-          <FormField
-            handleChangeText={(value) => setform({ ...form, confirmPassword: value })}
-            value={form.confirmPassword}
-            secureTextEntry
-            placeholder="Nhập lại mật khẩu"
-          />
-
-          <CustomButton
-            title="Đăng Ký"
-            containerStyles="mt-[70px] bg-secondary"
-            handlePress={() => router.push('/sign-in')}
-          />
-          <Link href={{ pathname: '/sign-in' }} className="mx-auto mt-7">
-            <View className="flex-row items-center">
-              <Text className="text-textPrimary text-center">Đã có tài khoản đăng nhập ngay</Text>
-              <View className="bg-secondary ml-2 rounded-full p-[10px]">
-                <AntDesign name="arrowright" size={16} color="#fff" />
-              </View>
-            </View>
-          </Link>
+          {/* form */}
+          <View className="mx-4 flex items-center gap-4 space-y-5">
+            <Animated.View
+              entering={FadeInDown.duration(1000).springify()}
+              className=" w-full rounded-2xl bg-black/5 p-5">
+              <TextInput placeholder="Username" placeholderTextColor={'gray'} />
+            </Animated.View>
+            <Animated.View
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+              className=" w-full rounded-2xl bg-black/5 p-5">
+              <TextInput
+                placeholder="Email"
+                textContentType="emailAddress"
+                placeholderTextColor={'gray'}
+              />
+            </Animated.View>
+            <Animated.View
+              entering={FadeInDown.delay(400).duration(1000).springify()}
+              className=" w-full rounded-2xl bg-black/5 p-5">
+              <TextInput placeholder="Password" placeholderTextColor={'gray'} secureTextEntry />
+            </Animated.View>
+            <Animated.View
+              entering={FadeInDown.delay(600).duration(1000).springify()}
+              className=" w-full rounded-2xl bg-black/5 p-5">
+              <TextInput
+                placeholder="Confirm password"
+                placeholderTextColor={'gray'}
+                secureTextEntry
+              />
+            </Animated.View>
+            <Animated.View
+              entering={FadeInDown.delay(800).duration(1000).springify()}
+              className="mt-2 w-full">
+              <TouchableOpacity className=" w-full rounded-2xl bg-sky-400 p-4">
+                <Text className="font-pbold text-center text-xl text-white">SignUp</Text>
+              </TouchableOpacity>
+            </Animated.View>
+            <Animated.View
+              entering={FadeInDown.delay(1000).duration(1000).springify()}
+              className="mt-2 flex-row justify-center gap-1">
+              <Text className="font-pregular">Already have an account? </Text>
+              <TouchableOpacity onPress={() => router.push('sign-in')}>
+                <Text className="font-pregular text-sky-600">Login.</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
         </View>
-      </ScrollView>
-    </Container>
+      </Container>
+    </>
   );
 };
 
