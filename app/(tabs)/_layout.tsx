@@ -37,16 +37,14 @@ const TabsLayout = () => {
             headerShown: false,
           }}
         />
-        {/* <Tabs.Screen
-          name="action"
+        <Tabs.Screen
+          name="category"
           options={{
-            tabBarLabel: 'Hoạt động',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="clipboard-list-outline" size={size} color={color} />
-            ),
+            tabBarLabel: 'Danh mục',
+            tabBarIcon: ({ color, size }) => <AntDesign name="profile" size={size} color={color} />,
             headerShown: false,
           }}
-        /> */}
+        />
         {/* <Tabs.Screen
           name="selectService"
           options={{
@@ -68,12 +66,23 @@ const TabsLayout = () => {
             headerShown: false,
           }}
         /> */}
-        {/* <Tabs.Screen
+
+        <Tabs.Screen
+          name="cart"
+          options={{
+            tabBarLabel: 'Giỏ hàng',
+            tabBarIcon: ({ color, size }) => (
+              <AntDesign name="shoppingcart" size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
           name="notification"
           options={{
-            tabBarLabel: 'Thông Báo',
+            tabBarLabel: 'Thông báo',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="notifications-outline" size={size} color={color} />
+              <AntDesign name="notification" size={size} color={color} />
             ),
             headerShown: false,
           }}
@@ -82,12 +91,10 @@ const TabsLayout = () => {
           name="profile"
           options={{
             tabBarLabel: 'Tài khoản',
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesome5 name="user-circle" size={size} color={color} />
-            ),
+            tabBarIcon: ({ color, size }) => <AntDesign name="user" size={size} color={color} />,
             headerShown: false,
           }}
-        /> */}
+        />
       </Tabs>
     </>
   );

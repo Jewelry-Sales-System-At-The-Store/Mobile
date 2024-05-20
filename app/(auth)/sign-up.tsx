@@ -80,7 +80,9 @@ const SignUp = () => {
             <Animated.View
               entering={FadeInDown.delay(800).duration(1000).springify()}
               className="mt-2 w-full">
-              <TouchableOpacity className=" w-full rounded-2xl bg-sky-400 p-4">
+              <TouchableOpacity
+                onPress={() => router.push('sign-in')}
+                className=" w-full rounded-2xl bg-sky-400 p-4">
                 <Text className="font-pbold text-center text-xl text-white">SignUp</Text>
               </TouchableOpacity>
             </Animated.View>
