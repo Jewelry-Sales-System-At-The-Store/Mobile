@@ -4,7 +4,7 @@ import { Container } from '~/components/Container';
 import { SignUpForm } from '../../types/auth.type';
 import { StatusBar } from 'expo-status-bar';
 import { images } from '~/constants/images';
-import Animated, { FadeIn, FadeInDown, FadeInUp, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { router } from 'expo-router';
 
 const SignIn = () => {
@@ -42,7 +42,7 @@ const SignIn = () => {
           <View className="flex items-center">
             <Animated.Text
               entering={FadeInUp.duration(1000).springify()}
-              className="font-pbold py-2 text-5xl tracking-wider text-white">
+              className="py-2 font-pbold text-5xl tracking-wider text-white">
               Login
             </Animated.Text>
           </View>
@@ -65,7 +65,7 @@ const SignIn = () => {
               <TouchableOpacity
                 onPress={() => router.push('home')}
                 className=" w-full rounded-2xl bg-sky-400 p-4">
-                <Text className="font-pbold text-center text-xl text-white">Login</Text>
+                <Text className="text-center font-pbold text-xl text-white">Login</Text>
               </TouchableOpacity>
             </Animated.View>
             <Animated.View

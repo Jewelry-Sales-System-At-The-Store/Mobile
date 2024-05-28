@@ -5,6 +5,18 @@ import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Categories from '~/components/Categories';
+import { ProductRowProps } from '~/components/ProductRow';
+
+const fakeData: ProductRowProps[] = [
+  {
+    title: 'Host selling',
+    desc: 'this is some things...',
+    items: [
+      { name: 'item1', price: '152' },
+      { name: 'item1', price: '152' },
+    ],
+  },
+];
 
 const home = () => {
   return (
@@ -18,7 +30,7 @@ const home = () => {
             <AntDesign name="search1" size={24} color="gray" />
             <TextInput placeholder="Jewelrys" className="ml-2 flex-1" />
           </View>
-          <TouchableOpacity className="bg-primary rounded-full p-3">
+          <TouchableOpacity className="rounded-full bg-primary p-3">
             <Feather name="sliders" size={24} color="white" />
           </TouchableOpacity>
         </View>
@@ -29,6 +41,9 @@ const home = () => {
           contentContainerStyle={{ paddingBottom: 20 }}>
           {/* category */}
           <Categories />
+
+          {/* featured */}
+          <View className="mt-5">{[]}</View>
         </ScrollView>
       </View>
     </Container>
