@@ -19,7 +19,7 @@ const TabsLayout = () => {
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: colors.primary,
+          tabBarActiveTintColor: colors.primary.DEFAULT,
           tabBarLabelStyle: {
             fontFamily: 'Poppins-Regular',
           },
