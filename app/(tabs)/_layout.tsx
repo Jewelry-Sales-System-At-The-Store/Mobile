@@ -18,7 +18,7 @@ interface TabIconProps {
 }
 
 const TabsLayout = () => {
-  const favorites = useSelector((state: RootState) => state.productSlice.favotites);
+  const favorites = useSelector((state: RootState) => state.productSlice.favorites);
   return (
     <>
       <Tabs

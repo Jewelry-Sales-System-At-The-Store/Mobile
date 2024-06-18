@@ -19,7 +19,7 @@ const options = [
 const category = () => {
   const [selectOrder, setselectOrder] = useState(OrderType.HIGH_TO_LOW);
   const pickerRef = useRef();
-  const items = useSelector((state: RootState) => state.productSlice.favotites);
+  const items = useSelector((state: RootState) => state.productSlice.favorites);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View flex className="!bg-white">

@@ -1,5 +1,5 @@
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Text, TouchableOpacity, View } from 'react-native-ui-lib';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,8 +18,9 @@ interface ItemProps {
 
 const Item = ({ product }: ItemProps) => {
   const dispatch = useDispatch();
-  const favotites = useSelector((state: RootState) => state.productSlice.favotites);
-  const isInList = favotites.includes(product);
+  const favotites = useSelector((state: RootState) => state.productSlice.favorites);
+
+  const isInList = favotites.findIndex((p) => p.id === product.id) != -1;
   return (
     <View style={styles.responsiveViewContainer}>
       <TouchableOpacity style={styles.responsiveView} className="relative !rounded-lg !bg-gray-200">
