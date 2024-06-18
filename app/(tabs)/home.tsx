@@ -1,15 +1,16 @@
-import { FlatList, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Categories from '~/components/Categories';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import Item from '~/components/Item';
+import { images } from '~/constants/images';
+import colors from '~/constants/colors';
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-const arr2 = [9, 10, 11, 12, 13, 14, 15, 16];
 
 const home = () => {
   const [page, setPage] = useState<number>(1);
@@ -48,13 +49,24 @@ const home = () => {
         </ScrollView>
         {/* item list */}
         <FlatList
-          data={arr}
+          data={items}
           renderItem={() => <Item />}
           numColumns={2}
-          keyExtractor={(i) => i.toString()}
+          //keyExtractor={(i) => i.toString()}
           className="mx-5 mt-5"
           onEndReachedThreshold={0.5}
           onEndReached={loadMoreItems}
+          ListEmptyComponent={() => (
+            <View centerH className="w-fit">
+              <Image
+                source={images.icons.empty}
+                className="h-[100px] w-[100px]"
+                resizeMode="contain"
+                tintColor={colors.gray.C5}
+              />
+              <Text className="font-plight text-base">không tìm thấy sản phẩm nào</Text>
+            </View>
+          )}
         />
       </View>
     </SafeAreaView>
