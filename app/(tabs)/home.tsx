@@ -6,6 +6,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Categories from '~/components/Categories';
 import { ProductRowProps } from '~/components/ProductRow';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text } from 'react-native-ui-lib';
 
 const fakeData: ProductRowProps[] = [
   {
@@ -20,10 +22,13 @@ const fakeData: ProductRowProps[] = [
 
 const home = () => {
   return (
-    <Container>
+    <SafeAreaView>
       <View className="h-full w-full bg-white">
-        <StatusBar style="dark" />
-
+        <StatusBar style="dark" backgroundColor="#fff" />
+        <View>
+          <Text>Hello,</Text>
+          <Text>Thành long</Text>
+        </View>
         {/* search bar */}
         <View className="flex-row items-center gap-2 px-4 pb-2">
           <View className="flex-1 flex-row items-center rounded-full border border-gray-300 p-3">
@@ -46,7 +51,7 @@ const home = () => {
           <View className="mt-5">{[]}</View>
         </ScrollView>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 };
 
