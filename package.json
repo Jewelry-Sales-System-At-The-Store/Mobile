@@ -1,5 +1,5 @@
 {
-  "name": "jewelry-sales-system-at-the-store-mobile",
+  "name": "jewelry-sales-system-at-the-store-mobile-v2",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
@@ -15,10 +15,9 @@
     "@react-native-community/blur": "^4.4.0",
     "@react-navigation/native": "^6.1.7",
     "@reduxjs/toolkit": "^2.2.5",
-    "@rneui/base": "^4.0.0-rc.7",
-    "@rneui/themed": "^4.0.0-rc.8",
     "expo": "~51.0.14",
     "expo-constants": "~16.0.2",
+    "expo-dev-launcher": "^4.0.20",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.16",
     "expo-status-bar": "~1.12.1",
@@ -39,8 +38,9 @@
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@types/react": "~18.2.79",
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "@types/react-native": "^0.73.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "eslint": "^8.57.0",
@@ -52,12 +52,6 @@
   },
   "eslintConfig": {
     "extends": "universe/native"
-  },
-  "resolutions": {
-    "expo-modules-core": "~1.11.0"
-  },
-  "overrides": {
-    "expo-modules-core": "~1.11.0"
   },
   "expo": {
     "install": {
