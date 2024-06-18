@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '~/store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
   const [fontsLoaded, error] = useFonts({
@@ -27,13 +28,15 @@ export default function Layout() {
   if (!fontsLoaded && !error) return null;
   SplashScreen.hideAsync();
   return (
-    <Provider store={store}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'ios' }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'ios' }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="itemDetails" options={{ headerShown: false }} />
-      </Stack>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'ios' }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'ios' }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="itemDetails" options={{ headerShown: false }} />
+        </Stack>
+      </Provider>
+    </GestureHandlerRootView>
   );
 }

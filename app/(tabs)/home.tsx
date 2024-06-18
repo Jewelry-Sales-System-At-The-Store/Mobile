@@ -9,21 +9,31 @@ import { Text, View } from 'react-native-ui-lib';
 import Item from '~/components/Item';
 import { images } from '~/constants/images';
 import colors from '~/constants/colors';
+import { Product } from '~/types/product.type';
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+const arr: Product[] = [
+  { title: 'Diamond Ring 24 kara', id: 1, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 2, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 3, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 4, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 5, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 6, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 7, img: images.object.ring, price: 145 },
+  { title: 'Diamond Ring 24 kara', id: 8, img: images.object.ring, price: 145 },
+];
 
 const home = () => {
   const [page, setPage] = useState<number>(1);
   const [items, setItems] = useState(arr);
 
   const loadMoreItems = () => {
-    setItems((pre) => [...pre, ...arr]);
-    setPage((prevPage) => prevPage + 1);
+    //setItems((pre) => [...pre, ...arr]);
+    //setPage((prevPage) => prevPage + 1);
   };
 
   return (
     <SafeAreaView>
-      <View className="h-full w-full bg-white">
+      <View className="h-full w-full !bg-white">
         <StatusBar style="dark" backgroundColor="#fff" />
         <View className="px-6 pb-2 pt-4">
           <Text className="font-plight text-base">Hello,</Text>
@@ -50,21 +60,21 @@ const home = () => {
         {/* item list */}
         <FlatList
           data={items}
-          renderItem={() => <Item />}
+          renderItem={({ item }) => <Item product={item} />}
           numColumns={2}
           //keyExtractor={(i) => i.toString()}
           className="mx-5 mt-5"
           onEndReachedThreshold={0.5}
           onEndReached={loadMoreItems}
           ListEmptyComponent={() => (
-            <View centerH className="w-fit">
+            <View centerH className="w-fit !bg-white">
               <Image
                 source={images.icons.empty}
                 className="h-[100px] w-[100px]"
                 resizeMode="contain"
                 tintColor={colors.gray.C5}
               />
-              <Text className="font-plight text-base">không tìm thấy sản phẩm nào</Text>
+              <Text className="font-plight text-base">Empty</Text>
             </View>
           )}
         />

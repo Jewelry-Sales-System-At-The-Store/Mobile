@@ -6,6 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
+import { Badge } from 'react-native-ui-lib';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/store';
 
 interface TabIconProps {
   icon: ImageSourcePropType;
@@ -15,6 +18,7 @@ interface TabIconProps {
 }
 
 const TabsLayout = () => {
+  const favorites = useSelector((state: RootState) => state.productSlice.favotites);
   return (
     <>
       <Tabs
@@ -32,16 +36,26 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="home"
           options={{
-            tabBarLabel: 'Trang chủ',
+            tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => <AntDesign name="home" size={size} color={color} />,
             headerShown: false,
           }}
         />
         <Tabs.Screen
-          name="category"
+          name="favorites"
           options={{
-            tabBarLabel: 'Danh mục',
-            tabBarIcon: ({ color, size }) => <AntDesign name="profile" size={size} color={color} />,
+            tabBarLabel: 'Favorites',
+            tabBarIcon: ({ color, size }) => (
+              <View className="relative">
+                <MaterialIcons name="favorite-border" size={size} color={color} />
+                <Badge
+                  className="absolute left-5"
+                  label={favorites.length > 0 ? favorites.length.toString() : '0'}
+                  backgroundColor="red"
+                  size={16}
+                />
+              </View>
+            ),
             headerShown: false,
           }}
         />
@@ -70,9 +84,12 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="cart"
           options={{
-            tabBarLabel: 'Giỏ hàng',
+            tabBarLabel: 'Cart',
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name="shoppingcart" size={size} color={color} />
+              <View className="relative">
+                <AntDesign name="shoppingcart" size={size} color={color} />
+                <Badge className="absolute left-5" label={'0'} backgroundColor="red" size={16} />
+              </View>
             ),
             headerShown: false,
           }}
@@ -80,7 +97,7 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="notification"
           options={{
-            tabBarLabel: 'Thông báo',
+            tabBarLabel: 'Notification',
             tabBarIcon: ({ color, size }) => (
               <AntDesign name="notification" size={size} color={color} />
             ),
@@ -90,7 +107,7 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="profile"
           options={{
-            tabBarLabel: 'Tài khoản',
+            tabBarLabel: 'Profile',
             tabBarIcon: ({ color, size }) => <AntDesign name="user" size={size} color={color} />,
             headerShown: false,
           }}
