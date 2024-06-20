@@ -1,11 +1,12 @@
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Text, TouchableOpacity, View } from 'react-native-ui-lib';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from '~/constants/colors';
 import { images } from '~/constants/images';
-import { toggleFavorite } from '~/slices/ProductSlice';
+import { setDetails, toggleFavorite } from '~/slices/ProductSlice';
 import { RootState } from '~/store';
 import { Product } from '~/types/product.type';
 
@@ -19,12 +20,18 @@ interface ItemProps {
 const Item = ({ product }: ItemProps) => {
   const dispatch = useDispatch();
   const favotites = useSelector((state: RootState) => state.productSlice.favorites);
-
+  const onItemClick = () => {
+    dispatch(setDetails(product));
+    router.push('itemDetails');
+  };
   const isInList = favotites.findIndex((p) => p.id === product.id) != -1;
   return (
     <View style={styles.responsiveViewContainer}>
-      <TouchableOpacity style={styles.responsiveView} className="relative !rounded-lg !bg-gray-200">
-        <Image source={product.img} style={styles.imageView} resizeMode="contain" />
+      <TouchableOpacity
+        style={styles.responsiveView}
+        onPress={() => onItemClick()}
+        className="relative !rounded-lg !bg-gray-200">
+        <Image source={product.imgs[0]} style={styles.imageView} resizeMode="contain" />
         <TouchableOpacity
           onPress={() => dispatch(toggleFavorite(product))}
           className="absolute right-2 top-2 h-[30px] w-[30px] !rounded-full !bg-white"

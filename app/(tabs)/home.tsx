@@ -12,14 +12,54 @@ import colors from '~/constants/colors';
 import { Product } from '~/types/product.type';
 
 const arr: Product[] = [
-  { title: 'Diamond Ring 24 kara', id: 1, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 2, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 3, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 4, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 5, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 6, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 7, img: images.object.ring, price: 145 },
-  { title: 'Diamond Ring 24 kara', id: 8, img: images.object.ring, price: 145 },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 1,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 2,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 3,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 4,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 5,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 6,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 7,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
+  {
+    title: 'Diamond Ring 24 kara',
+    id: 8,
+    imgs: [images.object.ring, images.object.ring2],
+    price: 145,
+  },
 ];
 
 const home = () => {
@@ -51,12 +91,9 @@ const home = () => {
         </View>
 
         {/* main */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}>
-          {/* category */}
+        <View>
           <Categories onChangeSelected={() => {}} />
-        </ScrollView>
+        </View>
         {/* item list */}
         <FlatList
           data={items}

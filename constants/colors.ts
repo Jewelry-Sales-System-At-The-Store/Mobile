@@ -3,8 +3,8 @@ export default {
     DEFAULT: '#333',
   },
   secondary: {
-    DEFAULT: '#FDAA5D',
-    BG: '#FEF5EE',
+    DEFAULT: '#F9DE7A',
+    BG: '#BBCAD0',
   },
   buttonTextPrimary: '#fff',
   textPrimary: '#383838',

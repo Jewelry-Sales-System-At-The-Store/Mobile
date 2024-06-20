@@ -20,8 +20,8 @@ module.exports = {
           DEFAULT: '#333',
         },
         secondary: {
-          DEFAULT: '#FDAA5D',
-          BG: '#FEF5EE',
+          DEFAULT: '#F9DE7A',
+          BG: '#BBCAD0',
         },
         black: {
           DEFAULT: '#000',

@@ -6,10 +6,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface ProductState {
   favorites: Product[];
+  details: Product;
 }
 
 const initialState: ProductState = {
   favorites: [],
+  details: {
+    id: 0,
+    imgs: [],
+    price: 152,
+    title: '',
+  },
 };
 
 const productSlice = createSlice({
@@ -27,10 +34,13 @@ const productSlice = createSlice({
     setFavorites: (state, action: PayloadAction<Product[]>) => {
       state.favorites = action.payload;
     },
+    setDetails: (state, action: PayloadAction<Product>) => {
+      state.details = action.payload;
+    },
   },
 });
 
-export const { toggleFavorite, setFavorites } = productSlice.actions;
+export const { toggleFavorite, setFavorites, setDetails } = productSlice.actions;
 
 export default productSlice.reducer;
 
