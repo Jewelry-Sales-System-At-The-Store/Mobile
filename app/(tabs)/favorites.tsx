@@ -1,7 +1,7 @@
 import { FlatList, Image, Text } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Picker, TouchableOpacity, View } from 'react-native-ui-lib';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/store';
@@ -20,6 +20,7 @@ const category = () => {
   const [selectOrder, setselectOrder] = useState(OrderType.HIGH_TO_LOW);
   const pickerRef = useRef();
   const items = useSelector((state: RootState) => state.productSlice.favorites);
+  console.log(items);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View flex className="!bg-white">

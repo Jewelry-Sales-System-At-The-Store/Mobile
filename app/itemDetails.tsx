@@ -1,29 +1,32 @@
-import { Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, Image, Dimensions } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { images } from '~/constants/images';
 import colors from '~/constants/colors';
 import { StatusBar } from 'expo-status-bar';
-import { Card, View } from 'react-native-ui-lib';
+import { Button, Card, TouchableOpacity, View } from 'react-native-ui-lib';
 import { router } from 'expo-router';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '~/store';
-import Test from '~/components/test';
 import Carousel from 'react-native-reanimated-carousel';
+import { toggleFavorite } from '~/slices/ProductSlice';
+import BarcodeModel from '~/components/BarcodeModel';
 
 const { width: viewportWidth } = Dimensions.get('window');
 const itemDetails = () => {
+  const dispatch = useDispatch();
+  const favotites = useSelector((state: RootState) => state.productSlice.favorites);
   const item = useSelector((state: RootState) => state.productSlice.details);
-  const carouselRef = useRef(null);
-
+  const isInList = favotites.findIndex((p) => p.id === item.id) != -1;
+  const [showQr, setshowQr] = useState(false);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar style="light" backgroundColor="#333" />
       <Image
         source={images.background.bgshape3}
         tintColor={colors.primary.DEFAULT}
-        className="absolute left-0 top-0 h-[120px] w-full"
+        className="absolute left-0 top-0 h-[150px] w-full"
         resizeMode="stretch"
       />
       <View row centerV className="w-full justify-between p-6">
@@ -34,26 +37,29 @@ const itemDetails = () => {
         </TouchableOpacity>
         <Text className="font-pregular text-xl !text-white ">Jewelry Info</Text>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => {
+            setshowQr(true);
+          }}
           className="h-[48px] w-[48px] items-center justify-center rounded-xl !bg-white/10">
           <AntDesign name="qrcode" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-      <View className="mt-6 !bg-black-100">
+      <View flex className="mt-6">
         <Carousel
           vertical={false}
           width={viewportWidth}
-          height={viewportWidth * 0.7}
+          height={viewportWidth}
           loop
           pagingEnabled={true}
           snapEnabled={true}
           autoPlay={true}
-          autoPlayInterval={2000}
+          autoPlayInterval={1500}
           mode="parallax"
           modeConfig={{
             parallaxScrollingScale: 0.8,
             parallaxScrollingOffset: 170,
           }}
+          style={{ marginTop: 16 }}
           data={item.imgs}
           renderItem={({ item, index }) => (
             <Card
@@ -72,18 +78,49 @@ const itemDetails = () => {
           )}
         />
       </View>
-      <View
-        flex
-        style={{ marginTop: viewportWidth * 0.7, borderRadius: 0 }}
-        className=" !bg-yellow-50  p-6">
-        <Text className="font-psemibold text-2xl !text-primary">{item.title}</Text>
-        <View row className="mt-2">
-          <View row center>
-            <Text className="font-pregular text-lg">Type:</Text>
-            <Text className="text-lg font-light"> Ring</Text>
+      <View style={{ marginTop: viewportWidth * 0.7 }} className="!bg-[#555] p-6">
+        <Text className="font-psemibold text-2xl !text-secondary">{item.title}</Text>
+        <View className="relative mt-4 justify-start gap-1 pb-4">
+          <View
+            center
+            className="absolute right-0 top-1/2 h-[70px] w-[70px] -translate-y-1/2 rounded-full !bg-secondary">
+            <Text className="my-1  font-psemibold text-2xl !text-[#555]">${item.price}</Text>
+          </View>
+          <View row centerV>
+            <Text className="font-pmedium text-base !text-secondary">Category:</Text>
+            <Text className="ml-1 font-plight text-base !text-white"> Ring</Text>
+          </View>
+          <View row centerV>
+            <Text className="font-pmedium text-base !text-secondary">Material:</Text>
+            <Text className="ml-1 font-plight text-base !text-white"> Diamon, Titan</Text>
+          </View>
+          <View row centerV>
+            <Text className="font-pmedium text-base !text-secondary">Weight:</Text>
+            <Text className="ml-1 font-plight text-base !text-white"> 300 gram</Text>
           </View>
         </View>
+        <View row centerV className="mt-5 items-center justify-between gap-6 ">
+          <Button flex className="!rounded-md !bg-red-400">
+            <Ionicons name="bag-add" size={24} color="white" />
+            <Text className="ml-6 py-1 font-pmedium text-lg uppercase !text-white">
+              Add To card
+            </Text>
+          </Button>
+          <TouchableOpacity
+            onPress={() => dispatch(toggleFavorite(item))}
+            className="!rounded-md !bg-white p-4"
+            center>
+            <View>
+              <MaterialIcons
+                name={isInList ? 'favorite' : 'favorite-border'}
+                size={24}
+                color={isInList ? 'red' : colors.primary.DEFAULT}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
+      <BarcodeModel visble={showQr} bgDismissable setVisible={setshowQr} item={item} />
     </SafeAreaView>
   );
 };
