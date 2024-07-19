@@ -12,6 +12,7 @@ import colors from '~/constants/colors';
 import { Jewelry } from '~/types/jewelry.type';
 import jewelryApi from '~/services/jewelryApi';
 import { PaggingRespone } from '~/types/base.type';
+import { JewelryType } from '~/types/user.type';
 
 const home = () => {
   const [itemList, setitemList] = useState<PaggingRespone<Jewelry>>({
@@ -21,12 +22,12 @@ const home = () => {
     totalPage: 0,
     totalRecord: 0,
   });
-
+  const [selectedType, setselectedType] = useState('');
   //-----------------------handle call get Jewelries ---------------------------//
   const { data, isSuccess, isFetching, isError, error, refetch } = jewelryApi.useGetJewelriesQuery({
     pageNumber: itemList.pageNumber,
     pageSize: itemList.pageSize,
-    data: { jewelryTypeId: '', name: '' },
+    data: { jewelryTypeId: selectedType, name: '' },
   });
 
   useEffect(() => {
@@ -71,7 +72,11 @@ const home = () => {
 
         {/* main */}
         <View>
-          <Categories onChangeSelected={() => {}} />
+          <Categories
+            onChangeSelected={(c) => {
+              setselectedType(c ? c.jewelryTypeId : '');
+            }}
+          />
         </View>
         {/* item list */}
         {data && (
