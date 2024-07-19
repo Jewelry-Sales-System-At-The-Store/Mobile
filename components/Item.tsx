@@ -5,16 +5,16 @@ import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Text, TouchableOpacity, View } from 'react-native-ui-lib';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from '~/constants/colors';
-import { images } from '~/constants/images';
 import { setDetails, toggleFavorite } from '~/slices/ProductSlice';
 import { RootState } from '~/store';
-import { Product } from '~/types/product.type';
+import { Jewelry } from '~/types/jewelry.type';
+import { toMoney } from '~/utils/formater';
 
 const screenWidth = Dimensions.get('window').width;
 const viewWidth = screenWidth * 0.4;
 
 interface ItemProps {
-  product: Product;
+  product: Jewelry;
 }
 
 const Item = ({ product }: ItemProps) => {
@@ -24,16 +24,18 @@ const Item = ({ product }: ItemProps) => {
     dispatch(setDetails(product));
     router.push('itemDetails');
   };
-  const isInList = favotites.findIndex((p) => p.id === product.id) != -1;
+  const isInList = favotites.findIndex((p) => p.jewelryId === product.jewelryId) != -1;
   return (
     <View style={styles.responsiveViewContainer}>
       <TouchableOpacity
         style={styles.responsiveView}
         onPress={() => onItemClick()}
         className="relative !rounded-lg !bg-gray-200">
-        <Image source={product.imgs[0]} style={styles.imageView} resizeMode="contain" />
+        <Image source={product.imageUrl} style={styles.imageView} resizeMode="contain" />
         <TouchableOpacity
-          onPress={() => dispatch(toggleFavorite(product))}
+          onPress={() => {
+            dispatch(toggleFavorite(product));
+          }}
           className="absolute right-2 top-2 h-[30px] w-[30px] !rounded-full !bg-white"
           center>
           <MaterialIcons
@@ -44,8 +46,8 @@ const Item = ({ product }: ItemProps) => {
         </TouchableOpacity>
       </TouchableOpacity>
       <View className="mt-2 w-full">
-        <Text className="line-clamp-1 font-pregular text-base">{product.title}</Text>
-        <Text className="font-pmedium text-lg">${product.price.toFixed(2).padEnd(2, '0')}</Text>
+        <Text className="line-clamp-1 font-pregular text-base">{product.name}</Text>
+        <Text className="font-pmedium text-lg">{toMoney(product.totalPrice)}</Text>
       </View>
     </View>
   );

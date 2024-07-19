@@ -1,5 +1,5 @@
 import { FlatList, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -9,66 +9,45 @@ import { Text, View } from 'react-native-ui-lib';
 import Item from '~/components/Item';
 import { images } from '~/constants/images';
 import colors from '~/constants/colors';
-import { Product } from '~/types/product.type';
-
-const arr: Product[] = [
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 1,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 2,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 3,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 4,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 5,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 6,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 7,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-  {
-    title: 'Diamond Ring 24 kara',
-    id: 8,
-    imgs: [images.object.ring, images.object.ring2],
-    price: 145,
-  },
-];
+import { Jewelry } from '~/types/jewelry.type';
+import jewelryApi from '~/services/jewelryApi';
+import { PaggingRespone } from '~/types/base.type';
 
 const home = () => {
-  const [page, setPage] = useState<number>(1);
-  const [items, setItems] = useState(arr);
+  const [itemList, setitemList] = useState<PaggingRespone<Jewelry>>({
+    data: [],
+    pageNumber: 1,
+    pageSize: 20,
+    totalPage: 0,
+    totalRecord: 0,
+  });
+
+  //-----------------------handle call get Jewelries ---------------------------//
+  const { data, isSuccess, isFetching, isError, error, refetch } = jewelryApi.useGetJewelriesQuery({
+    pageNumber: itemList.pageNumber,
+    pageSize: itemList.pageSize,
+    data: { jewelryTypeId: '', name: '' },
+  });
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setitemList(data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.log('error load jewelries', error);
+    }
+  }, [isError]);
+
+  //----------------------- end handle call get Jewelries ---------------------------//
 
   const loadMoreItems = () => {
-    //setItems((pre) => [...pre, ...arr]);
-    //setPage((prevPage) => prevPage + 1);
+    if (itemList.pageNumber < itemList.totalPage) {
+      setitemList({ ...itemList, pageNumber: itemList.pageNumber + 1 });
+      refetch();
+    }
   };
 
   return (
@@ -95,26 +74,28 @@ const home = () => {
           <Categories onChangeSelected={() => {}} />
         </View>
         {/* item list */}
-        <FlatList
-          data={items}
-          renderItem={({ item }) => <Item product={item} />}
-          numColumns={2}
-          //keyExtractor={(i) => i.toString()}
-          className="mx-5 mt-5"
-          onEndReachedThreshold={0.5}
-          onEndReached={loadMoreItems}
-          ListEmptyComponent={() => (
-            <View centerH className="w-fit !bg-white">
-              <Image
-                source={images.icons.empty}
-                className="h-[100px] w-[100px]"
-                resizeMode="contain"
-                tintColor={colors.gray.C5}
-              />
-              <Text className="font-plight text-base">Empty</Text>
-            </View>
-          )}
-        />
+        {data && (
+          <FlatList
+            data={data?.data}
+            renderItem={({ item }) => <Item product={item} />}
+            numColumns={2}
+            //keyExtractor={(i) => i.toString()}
+            className="mx-5 mt-5"
+            onEndReachedThreshold={0.5}
+            onEndReached={loadMoreItems}
+            ListEmptyComponent={() => (
+              <View centerH className="w-fit !bg-white">
+                <Image
+                  source={images.icons.empty}
+                  className="h-[100px] w-[100px]"
+                  resizeMode="contain"
+                  tintColor={colors.gray.C5}
+                />
+                <Text className="font-plight text-base">Empty</Text>
+              </View>
+            )}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

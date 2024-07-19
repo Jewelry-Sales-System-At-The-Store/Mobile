@@ -3,39 +3,35 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '~/store';
 import { Product } from '~/types/product.type';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Jewelry } from '~/types/jewelry.type';
 
 export interface ProductState {
-  favorites: Product[];
-  details: Product;
+  favorites: Jewelry[];
+  //details: Jewelry;
 }
 
 const initialState: ProductState = {
   favorites: [],
-  details: {
-    id: 0,
-    imgs: [],
-    price: 152,
-    title: '',
-  },
+ // details: { },
 };
 
 const productSlice = createSlice({
   name: 'productSlice',
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<Product>) => {
-      const index = state.favorites.findIndex((i) => i.id === action.payload.id);
+    toggleFavorite: (state, action: PayloadAction<Jewelry>) => {
+      const index = state.favorites.findIndex((i) => i.jewelryId === action.payload.jewelryId);
       if (index === -1) {
         state.favorites.push(action.payload);
       } else {
         state.favorites.splice(index, 1);
       }
     },
-    setFavorites: (state, action: PayloadAction<Product[]>) => {
+    setFavorites: (state, action: PayloadAction<Jewelry[]>) => {
       state.favorites = action.payload;
     },
-    setDetails: (state, action: PayloadAction<Product>) => {
-      state.details = action.payload;
+    setDetails: (state, action: PayloadAction<Jewelry>) => {
+     // state.details = action.payload;
     },
   },
 });
