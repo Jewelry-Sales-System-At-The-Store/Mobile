@@ -11,7 +11,7 @@ export interface BarcodeModelProps {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   onDismiss?: () => void;
   bgDismissable?: boolean;
-  item: Product;
+  code: string;
 }
 
 const BarcodeModel = ({
@@ -19,7 +19,7 @@ const BarcodeModel = ({
   visble,
   bgDismissable,
   onDismiss,
-  item,
+  code,
 }: BarcodeModelProps) => {
   const handleDismiss = () => {
     setVisible(false);
@@ -32,7 +32,7 @@ const BarcodeModel = ({
         className=" h-full w-full bg-[rgba(0,0,0,0.5)]">
         <Pressable className="m-auto w-fit !rounded-xl bg-white p-6">
           <View center>
-            <QRCode size={viewportWidth - 100} value={'' + item.id} />
+            <QRCode size={viewportWidth - 100} value={code} />
           </View>
         </Pressable>
       </Pressable>

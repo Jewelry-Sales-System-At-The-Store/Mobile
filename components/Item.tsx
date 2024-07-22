@@ -31,7 +31,7 @@ const Item = ({ product }: ItemProps) => {
         style={styles.responsiveView}
         onPress={() => onItemClick()}
         className="relative !rounded-lg !bg-gray-200">
-        <Image source={product.imageUrl} style={styles.imageView} resizeMode="contain" />
+        <Image source={{ uri: product.imageUrl }} style={styles.imageView} resizeMode="contain" />
         <TouchableOpacity
           onPress={() => {
             dispatch(toggleFavorite(product));
@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
   imageView: {
     width: viewWidth - 20,
     height: viewWidth - 10,
+    margin: 'auto',
+    borderRadius: 12,
   },
 });
 
