@@ -1,17 +1,38 @@
 import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useState } from 'react';
-import { Container } from '~/components/Container';
-import { SignUpForm } from '../../types/auth.type';
+import React, { useEffect, useState } from 'react';
+
 import { StatusBar } from 'expo-status-bar';
 import { images } from '~/constants/images';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { router } from 'expo-router';
+import { SignInRequest } from '~/types/user.type';
+import authApi from '~/services/authApi';
 
 const SignIn = () => {
-  const [form, setform] = useState<SignUpForm>({
+  const [form, setform] = useState<SignInRequest>({
     email: '',
     password: '',
   });
+
+  //----------------------------- call api sign in ------------------------------\\
+  const [SignIn, { isLoading, isSuccess, data, isError, error }] = authApi.useSignInMutation();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      router.push('home');
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.log('error sign in: ' + error);
+    }
+  }, [isError]);
+
+  const handleSignIn = () => {
+    SignIn(form);
+  };
+
   return (
     <>
       <Image
@@ -63,7 +84,7 @@ const SignIn = () => {
             entering={FadeInDown.delay(400).duration(1000).springify()}
             className="mt-2 w-full">
             <TouchableOpacity
-              onPress={() => router.push('home')}
+              onPress={() => handleSignIn()}
               className=" w-full rounded-2xl bg-primary p-4">
               <Text className="text-center font-pbold text-xl text-white">Login</Text>
             </TouchableOpacity>

@@ -36,7 +36,7 @@ const productSlice = createSlice({
     setDetails: (state, action: PayloadAction<Jewelry>) => {
       state.details = action.payload;
     },toggleCart: (state, action: PayloadAction<Jewelry>) => {
-      const index = state.favorites.findIndex((i) => i.jewelryId === action.payload.jewelryId);
+      const index = state.carts.findIndex((i) => i.jewelryId === action.payload.jewelryId);
       if (index === -1) {
         state.carts.push(action.payload);
       } else {

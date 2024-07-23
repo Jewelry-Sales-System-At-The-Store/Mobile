@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '~/store';
 import Carousel from 'react-native-reanimated-carousel';
-import { toggleFavorite } from '~/slices/ProductSlice';
+import { toggleCart, toggleFavorite } from '~/slices/ProductSlice';
 import BarcodeModel from '~/components/BarcodeModel';
 import { toMoney } from '~/utils/formater';
 
@@ -18,8 +18,10 @@ const { width: viewportWidth, height } = Dimensions.get('window');
 const itemDetails = () => {
   const dispatch = useDispatch();
   const favotites = useSelector((state: RootState) => state.productSlice.favorites);
+  const carts = useSelector((state: RootState) => state.productSlice.carts);
   const item = useSelector((state: RootState) => state.productSlice.details);
   const isInList = favotites.findIndex((p) => p.jewelryId === item?.jewelryId) != -1;
+  const isInCart = carts.findIndex((p) => p.jewelryId === item?.jewelryId) != -1;
   const [showQr, setshowQr] = useState(false);
   console.log(item);
   return (
@@ -112,10 +114,13 @@ const itemDetails = () => {
               </View>
             </View>
             <View row centerV className="mt-5 items-center justify-between gap-6 ">
-              <Button flex className="!rounded-md !bg-red-400">
+              <Button
+                flex
+                className="!rounded-md !bg-red-400"
+                onPress={() => dispatch(toggleCart(item))}>
                 <Ionicons name="bag-add" size={24} color="white" />
                 <Text className="ml-6 py-1 font-pmedium text-lg uppercase !text-white">
-                  Thêm vào giỏ hàng
+                  {isInCart ? 'Xóa khỏi giỏ hàng' : 'Thêm vào giỏ hàng'}
                 </Text>
               </Button>
               <TouchableOpacity
