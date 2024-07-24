@@ -12,7 +12,6 @@ import colors from '~/constants/colors';
 import { Jewelry } from '~/types/jewelry.type';
 import jewelryApi from '~/services/jewelryApi';
 import { PaggingRespone } from '~/types/base.type';
-import { JewelryType } from '~/types/user.type';
 import authApi from '~/services/authApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '~/store';
@@ -41,7 +40,7 @@ const home = () => {
   const [itemList, setitemList] = useState<PaggingRespone<Jewelry>>({
     data: [],
     pageNumber: 1,
-    pageSize: 20,
+    pageSize: 50,
     totalPage: 0,
     totalRecord: 0,
   });
@@ -67,12 +66,12 @@ const home = () => {
 
   //----------------------- end handle call get Jewelries ---------------------------//
 
-  const loadMoreItems = () => {
-    if (itemList.pageNumber < itemList.totalPage) {
-      setitemList({ ...itemList, pageNumber: itemList.pageNumber + 1 });
-      refetch();
-    }
-  };
+  // const loadMoreItems = () => {
+  //   if (itemList.pageNumber < itemList.totalPage) {
+  //     setitemList({ ...itemList, pageNumber: itemList.pageNumber + 1 });
+  //     refetch();
+  //   }
+  // };
 
   return (
     <SafeAreaView>
@@ -111,7 +110,7 @@ const home = () => {
             //keyExtractor={(i) => i.toString()}
             className="mx-5 mt-5"
             onEndReachedThreshold={0.5}
-            onEndReached={loadMoreItems}
+            // onEndReached={loadMoreItems}
             ListEmptyComponent={() => (
               <View centerH className="w-fit !bg-white">
                 <Image
