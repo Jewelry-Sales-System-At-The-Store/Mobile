@@ -3,17 +3,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '~/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Jewelry } from '~/types/jewelry.type';
-import { JWTDecode, SignInRespone } from '~/types/auth.type';
+import { GetUserResponse, JWTDecode, SignInRespone } from '~/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
 import { saveToken } from '~/utils/auth';
 
 export interface AuthState {
     token:JWTDecode|undefined
+    userInfo: GetUserResponse | undefined
 }
 
 
 const initialState: AuthState = {
-    token:undefined
+    token:undefined,
+    userInfo:undefined
 };
 
 const authSlice = createSlice({
@@ -24,11 +26,14 @@ const authSlice = createSlice({
       saveToken(action.payload);
       state.token = jwtDecode<JWTDecode>(action.payload.token);
     },
+    setUserInfo:  (state, action: PayloadAction<GetUserResponse>) => {
+        state.userInfo = action.payload
+      },
    
   },
 });
 
-export const { setSignInResponse } = authSlice.actions;
+export const { setSignInResponse,setUserInfo } = authSlice.actions;
 
 export default authSlice.reducer;
 

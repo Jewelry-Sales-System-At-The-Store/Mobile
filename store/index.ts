@@ -2,10 +2,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authApi from '~/services/authApi';
 import jewelryApi from '~/services/jewelryApi';
+import authSlice from '~/slices/authSlice';
 import ProductSlice from '~/slices/ProductSlice';
 
 export const store = configureStore({
   reducer: { productSlice: ProductSlice ,
+    athSlice: authSlice ,
      [jewelryApi.reducerPath]: jewelryApi.reducer,
      [authApi.reducerPath]: authApi.reducer,},
      middleware:(getDefaultMiddleWare) => getDefaultMiddleWare()

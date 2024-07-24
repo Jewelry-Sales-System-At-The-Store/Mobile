@@ -26,3 +26,14 @@ export interface JWTDecode {
   iss: string
   aud: string
 }
+
+export interface GetUserResponse{
+  customerId: string
+  userName: string
+  fullName: string
+  email: string
+  phone: string
+  gender: string
+  address: string
+  point: number
+}

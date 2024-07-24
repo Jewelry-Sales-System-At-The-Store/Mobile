@@ -13,9 +13,29 @@ import { Jewelry } from '~/types/jewelry.type';
 import jewelryApi from '~/services/jewelryApi';
 import { PaggingRespone } from '~/types/base.type';
 import { JewelryType } from '~/types/user.type';
+import authApi from '~/services/authApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '~/store';
+import { setUserInfo } from '~/slices/authSlice';
+import LoadingModel from '~/components/LoadingModel';
 
 const home = () => {
+  const dispatch = useDispatch();
+  const userId = useSelector((state: RootState) => state.athSlice.token?.nameid);
+  const userName = useSelector((state: RootState) => state.athSlice.userInfo?.fullName);
   //-----------------------handle call get user ---------------------------//
+  const {
+    isSuccess: isGetUserSuccess,
+    isError: isGetUserError,
+    data: userData,
+    isLoading,
+  } = authApi.useGetUserByIdQuery(userId ?? '');
+
+  useEffect(() => {
+    if (isGetUserSuccess && userData) {
+      dispatch(setUserInfo(userData));
+    }
+  }, [isGetUserSuccess]);
 
   //-----------------------end handle call get user ---------------------------//
   const [itemList, setitemList] = useState<PaggingRespone<Jewelry>>({
@@ -56,11 +76,12 @@ const home = () => {
 
   return (
     <SafeAreaView>
+      <LoadingModel isloading={isFetching || isLoading} />
       <View className="h-full w-full !bg-white">
         <StatusBar style="dark" backgroundColor="#fff" />
         <View className="px-6 pb-2 pt-4">
           <Text className="font-plight text-base">Hello,</Text>
-          <Text className="font-pmedium text-lg">Thành long</Text>
+          <Text className="font-pmedium text-lg">{userName}</Text>
         </View>
         {/* search bar */}
         <View className="flex-row items-center gap-2 px-4 pb-2">

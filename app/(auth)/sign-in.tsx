@@ -9,6 +9,7 @@ import authApi from '~/services/authApi';
 import { useDispatch } from 'react-redux';
 import { setSignInResponse } from '~/slices/authSlice';
 import { SignInRequest } from '~/types/auth.type';
+import LoadingModel from '~/components/LoadingModel';
 const SignIn = () => {
   const dispatch = useDispatch();
   const [form, setform] = useState<SignInRequest>({
@@ -37,6 +38,7 @@ const SignIn = () => {
 
   return (
     <>
+      <LoadingModel isloading={isLoading} />
       <Image
         className="absolute h-full w-full"
         source={images.background.background1}

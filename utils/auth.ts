@@ -1,6 +1,7 @@
 import { SignInRespone } from '~/types/auth.type';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { KEYS } from '~/enums';
+import { router } from 'expo-router';
 
 export const saveToken = (data: SignInRespone) => {
   AsyncStorage.setItem(KEYS.ACCESS_TOKEN, data.token);
@@ -23,3 +24,8 @@ export const loadToken = async () => {
 export const clearToken = () => {
   AsyncStorage.clear();
 };
+
+export const logout = ()=>{
+  clearToken();
+  router.dismissAll();
+}
