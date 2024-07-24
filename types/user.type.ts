@@ -52,8 +52,3 @@ export interface JewelryType {
     name: string;
     jewelries: any[];
 }
-
-export interface SignInRequest {
-    email: string;
-    password: string;
-}

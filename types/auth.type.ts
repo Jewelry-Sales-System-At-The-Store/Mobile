@@ -3,14 +3,26 @@ export interface SignInForm {
   password: string;
   confirmPassword: string;
 }
-export type SignUpForm = Pick<SignInForm, 'email' | 'password'>;
 
 export interface SignInRequest {
-  email: string;
-  password: string;
+  phone: string
+  password: string
 }
 
 export interface SignInRespone {
   token: string
   expiration: string
+}
+
+export interface JWTDecode {
+  Id: string
+  nameid: string
+  sub: string
+  email: string
+  jti: string
+  nbf: number
+  exp: number
+  iat: number
+  iss: string
+  aud: string
 }

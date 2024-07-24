@@ -15,6 +15,9 @@ import { PaggingRespone } from '~/types/base.type';
 import { JewelryType } from '~/types/user.type';
 
 const home = () => {
+  //-----------------------handle call get user ---------------------------//
+
+  //-----------------------end handle call get user ---------------------------//
   const [itemList, setitemList] = useState<PaggingRespone<Jewelry>>({
     data: [],
     pageNumber: 1,
