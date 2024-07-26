@@ -4,7 +4,7 @@ import { Jewelry } from '../types/jewelry.type';
 import { JewelryType } from '../types/user.type';
 import { baseQueryWithReauth } from './baseApi';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { GetUserResponse, SignInRequest, SignInRespone } from '~/types/auth.type';
+import { GetUserResponse, SignInRequest, SignInRespone, SignUpRequest } from '~/types/auth.type';
 
 export const authApi = createApi({
     baseQuery: baseQueryWithReauth,
@@ -28,6 +28,16 @@ export const authApi = createApi({
                 method: 'GET',
                
             }),
+        }),signUp: builder.mutation<any, SignUpRequest>({
+            query: (body) => ({
+                url: `api/User/CustomerRegister`,
+                method: 'POST',
+                body,
+                
+            }),
+            extraOptions:{
+                hasHeader: false
+            }
         }),
         
     }),

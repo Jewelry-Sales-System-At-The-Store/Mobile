@@ -37,3 +37,13 @@ export interface GetUserResponse{
   address: string
   point: number
 }
+
+export interface SignUpRequest{
+  phone: string
+  password: string
+  userName: string
+  fullName: string
+  email: string
+  gender: string
+  address: string
+}
